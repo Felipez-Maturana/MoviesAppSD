@@ -1,0 +1,62 @@
+<h1>MovieApp</h1>
+<p>Busca tu película favorita</p>
+
+
+
+<%= form_tag movies_index_path, method: :get, class: "navbar-form navbar-left search-form" do %>
+  <%= text_field_tag(
+      :movie_search,
+      params[:movie_search],
+      placeholder: "Search",
+      class: "form-control"
+  ) %>
+
+
+
+  <%= number_field_tag 'limit',params[:limit] || 10 ,class: 'special_input' ,min: 1, required: true %>
+
+  <%= submit_tag "Buscar", class: "btn btn-primary" %>
+
+<% end %>
+
+
+
+
+
+
+<% if @result.present? %>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Titulo</th>
+      <th scope="col">Tipo</th>
+      <th scope="col">Año de inicio</th>
+      <th scope="col">Año de término</th>
+      <th scope="col">Géneros</th>
+    </tr>
+  </thead>
+  <tbody>
+
+
+
+  <% @result.each_with_index do |movie,index| %>
+
+
+    <tr>
+      <th scope="row"><%= index+1 %></th>
+      <td><%= movie["primaryTitle"] %></td>
+      <td><%= movie["titleType"] %></td>
+      <td><%= movie["startYear"] %></td>
+      <td><%= movie["endYear"] %></td>
+      <td><%= movie["genres"] %></td>
+
+
+    </tr>
+
+  <% end %>
+<% end %>
+
+
+  </tbody>
+</table>
